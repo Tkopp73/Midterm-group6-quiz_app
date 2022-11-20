@@ -24,7 +24,10 @@ body {
     display: flex;
     justify-content: center;
   }
-  #category 1 {
+  .categories {
+    flex-wrap: wrap;
+    div {
     border: solid black;
+    }
   }
 }

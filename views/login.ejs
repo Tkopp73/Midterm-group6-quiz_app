@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Users</title>
+  <title>Login Page</title>
 
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -14,16 +14,25 @@
   <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="/styles/header.css"/>
 
-
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/users.js"></script>
+  <script defer src="/scripts/app.js"></script>
 </head>
 
 <body>
   <%- include('partials/_header') %>
-  <h1>Users</h1>
-  <button id="fetch-users">Fetch Users via AJAX</button>
-  <ul id="users"></ul>
+  <div class="scoreboard">
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+      <div class="login">
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="Enter email">
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Enter password">
+        <button type="submit" class="loginButton">Login</button>
+      </div>
+    </div>
+    </form>
+  </main>
 </body>
 
 </html>
