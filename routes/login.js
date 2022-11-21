@@ -10,10 +10,10 @@ const { getUsersByEmail, getUsersById } = require('../db/queries/users');
 const router  = express.Router();
 
 router.get('/', (req, res) => {
-  const user_id = req.session.users
+  const user_id = req.session.users;
   const templateVars = {
     user: user_id,
-    email: getUsersById(user_id).email
+    email: getUsersById(user_id).emailß
   };
   console.log('login templatevars:', templateVars);
   console.log("Login route is working");
