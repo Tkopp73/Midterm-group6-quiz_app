@@ -11,14 +11,23 @@ const { getUsersById } = require('../db/queries/users');
 
 router.get('/', (req, res) => {
   const user_id = req.session.user_id;
-  getUsersById(user_id).then((user) => {
+  if (user_id) {
+  getUsersById(user_id)
+  .then((user) => {
     const templateVars = {
       user: user_id,
       email: user.email
     };
-    console.log('templateVars:', templateVars);
+      console.log('templateVars:', templateVars);
+      res.render('home', templateVars);
+    });
+  } else {
+    const user_id = req.session.user_id;
+    const templateVars = {
+      user: user_id
+    };
     res.render('home', templateVars);
-  });
+  }
 });
 
 router.post("/logout", (req, res) => {
