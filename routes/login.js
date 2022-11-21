@@ -6,10 +6,20 @@
  */
 
 const express = require('express');
+const { getUsersByEmail } = require('../db/queries/users');
 const router  = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('users');
-}); 
+  console.log("Route.js is working");
+  res.render('login');
+});
+
+router.post('/', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  // console.log("PRINT:", email, password);
+  console.log(getUsersByEmail(email));
+  res.redirect('/')
+});
 
 module.exports = router;
