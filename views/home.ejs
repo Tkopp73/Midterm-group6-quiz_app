@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Home Page</title>
 
-<head>
-  <title>Home Page</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/header.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
-  <link rel="stylesheet" href="/styles/header.css"/>
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
-</head>
-
-<body>
-  <%- include('partials/_header') %>
-  <div class="scoreboard">
-    <h1>SCOREBOARD</h1>
-  </div>
-  <div class="categories">
-    <span>Category 1</span>
-    <span>Category 2</span>
-    <span>Category 3</span>
-    <span>Category 4</span>
-  </div>
-</body>
-
+  <body>
+    <%- include('partials/_header') %>
+    <div class="scoreboard">
+      <h1>SCOREBOARD</h1>
+      <h2>Users</h2>
+      <button id="fetch-users">Fetch Users via AJAX</button>
+      <ul id="users"></ul>
+    </div>
+    <div class="categories">
+      <span>Film & TV</span>
+      <span>Music</span>
+      <span>History</span>
+      <span>General Knowledge</span>
+      <span>Food & Drink</span>
+    </div>
+  </body>
 </html>
