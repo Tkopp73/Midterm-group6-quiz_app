@@ -13,9 +13,7 @@ router.get('/', (req, res) => {
   const user_id = req.session.users;
   const templateVars = {
     user: user_id,
-    email: getUsersById(user_id).emailß
   };
-  console.log('login templatevars:', templateVars);
   console.log("Login route is working");
   res.render('login', templateVars);
 });
