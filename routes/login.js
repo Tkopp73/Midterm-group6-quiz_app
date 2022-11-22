@@ -6,11 +6,11 @@
  */
 
 const express = require('express');
-const { getUsersByEmail, getUsersById } = require('../db/queries/users');
+const { getUsersByEmail } = require('../db/queries/users');
 const router  = express.Router();
 
 router.get('/', (req, res) => {
-  const user_id = req.session.users;
+  const user_id = req.session.user_id;
   const templateVars = {
     user: user_id,
   };

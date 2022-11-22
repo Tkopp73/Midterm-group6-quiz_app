@@ -1,5 +1,5 @@
 const express = require("express");
-const { addQuiz, getUsersByEmail, getUsersById } = require("../db/queries/users");
+const { addQuiz, getUsersById } = require("../db/queries/users");
 const router = express.Router();
 
 router.get("/", (req, res) => {

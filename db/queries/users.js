@@ -35,6 +35,20 @@ const getUsersById = (id) => {
   });
 }
 
+const getQuizById = (id) => {
+  const querryString = ;
+  const input = [id];
+
+  return db.query(querryString, input)
+  .then(result => {
+    return result.rows[0];
+  })
+  .catch(err => {
+    console.log(err.message);
+    return err;
+  });
+}
+
 const addQuiz = (quizForm, user) => {
   const values = [quizForm.quiz_title, user, quizForm.question_01, quizForm.answer_01_a, quizForm.a1a, quizForm.answer_01_b, quizForm.a1b, quizForm.answer_01_c, quizForm.a1c, quizForm.answer_01_d, quizForm.a1d];
   const queryString = `
@@ -60,5 +74,21 @@ const addQuiz = (quizForm, user) => {
     });
 };
 
-module.exports = { getUsers, getUsersByEmail, getUsersById, addQuiz, };
+
+const addUser = (newUserName, newUserEmail, newPassword) => {
+  const values = [newUserName, newUserEmail, newPassword];
+  const queryString = `
+  INSERT INTO users (name, email, password)
+  VALUES ($1, $2, $3);`;
+  return db.query(queryString, values)
+  .then((result) => {
+    console.log(result.rows);
+    return result.rows;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
+
+module.exports = { getUsers, getUsersByEmail, getUsersById, addQuiz, addUser };
 
