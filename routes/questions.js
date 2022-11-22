@@ -21,15 +21,75 @@ router.get('/', (req, res) => {
     })
     setTimeout(() => {
       res.render('quiz', templateVars);
-    }, 2000)
+    }, 500)
   } else if (req.query.history) {
-    res.render('quiz');
+    // console.log(req.query);
+    https.get('https://the-trivia-api.com/api/questions?categories=history&limit=10', res => {
+      let data = [];
+      res.on('data', chunk => data.push(chunk));
+
+      res.on('end', () => {
+        console.log('response:')
+        const users = JSON.parse(Buffer.concat(data).toString());
+        // console.log(users);
+        templateVars.users = users;
+        // console.log('templateVars', templateVars);
+      });
+    })
+    setTimeout(() => {
+      res.render('quiz', templateVars);
+    }, 500)
   } else if (req.query.general) {
-    res.render('quiz');
+    // console.log(req.query);
+    https.get('https://the-trivia-api.com/api/questions?categories=general_knowledge&limit=10', res => {
+      let data = [];
+      res.on('data', chunk => data.push(chunk));
+
+      res.on('end', () => {
+        console.log('response:')
+        const users = JSON.parse(Buffer.concat(data).toString());
+        // console.log(users);
+        templateVars.users = users;
+        // console.log('templateVars', templateVars);
+      });
+    })
+    setTimeout(() => {
+      res.render('quiz', templateVars);
+    }, 500)
   } else if (req.query.food) {
-    res.render('quiz');
+    // console.log(req.query);
+    https.get('https://the-trivia-api.com/api/questions?categories=food_and_drink&limit=10', res => {
+        let data = [];
+      res.on('data', chunk => data.push(chunk));
+
+      res.on('end', () => {
+        console.log('response:')
+        const users = JSON.parse(Buffer.concat(data).toString());
+        // console.log(users);
+        templateVars.users = users;
+        // console.log('templateVars', templateVars);
+      });
+    })
+    setTimeout(() => {
+      res.render('quiz', templateVars);
+    }, 500)
   } else if (req.query.music) {
-    res.render('quiz');
+    // console.log(req.query);
+    https.get('https://the-trivia-api.com/api/questions?categories=music&limit=10', res => {
+        let data = [];
+      res.on('data', chunk => data.push(chunk));
+
+      res.on('end', () => {
+        console.log('response:')
+        const users = JSON.parse(Buffer.concat(data).toString());
+        // console.log(users);
+        templateVars.users = users;
+        // console.log('templateVars', templateVars);
+      });
+    })
+    setTimeout(() => {
+      res.render('quiz', templateVars);
+    }, 500)
   }
   });
 
