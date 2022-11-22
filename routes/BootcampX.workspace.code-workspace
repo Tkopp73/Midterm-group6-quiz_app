@@ -9,5 +9,10 @@
     {
       "path": "../../tweeter"
     }
-  ]
+  ],
+  "extensions": {
+    "recommendations": [
+      "mhutchie.git-graph"
+    ]
+  }
 }
