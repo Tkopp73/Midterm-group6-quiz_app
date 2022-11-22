@@ -1,0 +1,21 @@
+.quizContainer {
+  margin: 1em;
+}
+
+.questionContainer {
+  margin: 1em;
+}
+
+.answersContainer {
+  margin: 5px;
+}
+
+.answers {
+  margin: 5px;
+  border-radius: 15px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#A2B7DB));
+}
+
+.answers:hover {
+  box-shadow: (7px 5px 15px #fff);
+}
