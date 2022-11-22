@@ -36,17 +36,17 @@ const getUsersById = (id) => {
 }
 
 const getQuizById = (id) => {
-  const querryString = ;
-  const input = [id];
+  // const querryString = ;
+  // const input = [id];
 
-  return db.query(querryString, input)
-  .then(result => {
-    return result.rows[0];
-  })
-  .catch(err => {
-    console.log(err.message);
-    return err;
-  });
+  // return db.query(querryString, input)
+  // .then(result => {
+  //   return result.rows[0];
+  // })
+  // .catch(err => {
+  //   console.log(err.message);
+  //   return err;
+  // });
 }
 
 const addQuiz = (quizForm, user) => {
