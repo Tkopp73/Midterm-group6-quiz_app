@@ -1,11 +1,13 @@
 const express = require('express');
 const router  = express.Router();
 const https = require('https');
-// const { renderQuestions } = require('../public/scripts/helperFunctions/forQuiz');
 
 router.get('/', (req, res) => {
   // console.log(req.query);
-  let templateVars = {};
+  const user_id = req.session.users;
+  let templateVars = {
+    user: user_id,
+  };
   if (req.query.film) {
     https.get('https://the-trivia-api.com/api/questions?categories=film_and_tv&limit=10', res => {
         let data = [];
@@ -13,9 +15,9 @@ router.get('/', (req, res) => {
 
       res.on('end', () => {
         console.log('response:')
-        const users = JSON.parse(Buffer.concat(data).toString());
+        const questions = JSON.parse(Buffer.concat(data).toString());
         // console.log(users);
-        templateVars.users = users;
+        templateVars.questions = questions;
         // console.log('templateVars', templateVars);
       });
     })
@@ -30,9 +32,9 @@ router.get('/', (req, res) => {
 
       res.on('end', () => {
         console.log('response:')
-        const users = JSON.parse(Buffer.concat(data).toString());
-        // console.log(users);
-        templateVars.users = users;
+        const questions = JSON.parse(Buffer.concat(data).toString());
+        // console.log(questions);
+        templateVars.questions = questions;
         // console.log('templateVars', templateVars);
       });
     })
@@ -47,9 +49,9 @@ router.get('/', (req, res) => {
 
       res.on('end', () => {
         console.log('response:')
-        const users = JSON.parse(Buffer.concat(data).toString());
-        // console.log(users);
-        templateVars.users = users;
+        const questions = JSON.parse(Buffer.concat(data).toString());
+        // console.log(questions);
+        templateVars.questions = questions;
         // console.log('templateVars', templateVars);
       });
     })
@@ -64,9 +66,9 @@ router.get('/', (req, res) => {
 
       res.on('end', () => {
         console.log('response:')
-        const users = JSON.parse(Buffer.concat(data).toString());
-        // console.log(users);
-        templateVars.users = users;
+        const questions = JSON.parse(Buffer.concat(data).toString());
+        // console.log(questions);
+        templateVars.questions = questions;
         // console.log('templateVars', templateVars);
       });
     })
@@ -81,9 +83,9 @@ router.get('/', (req, res) => {
 
       res.on('end', () => {
         console.log('response:')
-        const users = JSON.parse(Buffer.concat(data).toString());
-        // console.log(users);
-        templateVars.users = users;
+        const questions = JSON.parse(Buffer.concat(data).toString());
+        // console.log(questions);
+        templateVars.questions = questions;
         // console.log('templateVars', templateVars);
       });
     })
@@ -95,6 +97,9 @@ router.get('/', (req, res) => {
 
 
 
+
+
+//-------------------------AJAX---------------------------------------------------
   // // --------- FILM_AND_TV --------------
   // const handleSubmitFilm = (event) => {
   //   event.preventDefault();

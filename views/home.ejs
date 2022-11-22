@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/header.css" />
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+    <div class="scoreboard">
+      <h1>SCOREBOARD</h1>
+      <h2>Users</h2>
+      <button id="fetch-users">Fetch Users via AJAX</button>
+      <ul id="users"></ul>
+    </div>
+    <div id="categories">
+      <form class="film" action="/quiz" method="get">
+        <button value="film" name="film" type="submit">Film and TV</button>
+      </form>
+      <form class="history" action="/quiz" method="get">
+        <button value="history" name="history" type="submit">History</button>
+      </form>
+      <form class="general-knowledge" action="/quiz" method="get">
+        <button value="general" name="general" type="submit">General Knowledge</button>
+      </form>
+      <form class="food-drink" action="/quiz" method="get">
+        <button value="food" name="food" type="submit">Food and Drink</button>
+      </form>
+      <form class="music" action="/quiz" method="get">
+        <button value="music" name="music" type="submit">Music</button>
+      </form>
+    </div>
+  </body>
+</html>
