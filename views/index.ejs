@@ -15,26 +15,26 @@
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
-  <script defer type="text/javascript" src="/scripts/questions-api.js"></script>
+  <!-- <script defer type="text/javascript" src="/scripts/questions-api.js"></script> -->
+  <!-- <script defer type="text/javascript" src="/routes/questions.js"></script> -->
 </head>
 
 <body>
   <h1>Have fun! 🥔</h1>
-
-  <form class="film-tv">
-    <button type="submit">Film and TV</button>
+  <form class="film" action="/quiz" method="get">
+    <button value="film" name="film" type="submit">Film and TV</button>
   </form>
-  <form class="history">
-    <button type="submit">History</button>
+  <form class="history" action="/quiz" method="get">
+    <button value="history" name="history" type="submit">History</button>
   </form>
-  <form class="general-knowledge">
-    <button type="submit">General Knowledge</button>
+  <form class="general-knowledge" action="/quiz" method="get">
+    <button value="general" name="general" type="submit">General Knowledge</button>
   </form>
-  <form class="food-drink">
-    <button type="submit">Food and Drink</button>
+  <form class="food-drink" action="/quiz" method="get">
+    <button value="food" name="food" type="submit">Food and Drink</button>
   </form>
-  <form class="music">
-    <button type="submit">Music</button>
+  <form class="music" action="/quiz" method="get">
+    <button value="music" name="music" type="submit">Music</button>
   </form>
 </body>
 

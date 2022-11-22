@@ -1,32 +1,66 @@
+const express = require('express');
+const router  = express.Router();
+const https = require('https');
+// const { renderQuestions } = require('../public/scripts/helperFunctions/forQuiz');
+
+router.get('/', (req, res) => {
+  // console.log(req.query);
+  let templateVars = {};
+  if (req.query.film) {
+    https.get('https://the-trivia-api.com/api/questions?categories=film_and_tv&limit=10', res => {
+        let data = [];
+      res.on('data', chunk => data.push(chunk));
+
+      res.on('end', () => {
+        console.log('response:')
+        const users = JSON.parse(Buffer.concat(data).toString());
+        // console.log(users);
+        templateVars.users = users;
+        // console.log('templateVars', templateVars);
+      });
+    })
+    setTimeout(() => {
+      res.render('quiz', templateVars);
+    }, 2000)
+  } else if (req.query.history) {
+    res.render('quiz');
+  } else if (req.query.general) {
+    res.render('quiz');
+  } else if (req.query.food) {
+    res.render('quiz');
+  } else if (req.query.music) {
+    res.render('quiz');
+  }
+  });
 
 
-// $(document).ready(() => {
+
+  // // --------- FILM_AND_TV --------------
+  // const handleSubmitFilm = (event) => {
+  //   event.preventDefault();
+  //   console.log("submit");
+
+  //   setTimeout(() => {
+
+  //     $.ajax({
+  //       url: 'https://the-trivia-api.com/api/questions?categories=film_and_tv&limit=10',
+  //       method: 'GET'
+  //     })
+  //     .then(response => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
 
 
-//   // --------- FILM_AND_TV --------------
-//   const handleSubmitFilm = (event) => {
-//     event.preventDefault();
-//     // console.log("submit");
+  //   }, 500);
+  // };
+  // $(document).ready(function() {
 
-//     setTimeout(() => {
-
-//       $.ajax({
-//         url: 'https://the-trivia-api.com/api/questions?categories=film_and_tv&limit=10',
-//         method: 'GET'
-//       })
-//       .then(response => {
-//         console.log(response);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       })
-
-
-//     }, 500);
-//   };
-
-//   $(".film-tv").on("submit", handleSubmitFilm)
-
+    // const filmButton = document.getElementsByClassName('film-tv');
+    // filmButton.addEventListener("submit", handleSubmitFilm)
+// });
 
 //   // --------- HISTORY ----------------
 //   const handleSubmitHistory = (event) => {
@@ -127,5 +161,4 @@
 
 
 
-
-// });
+module.exports = router;
