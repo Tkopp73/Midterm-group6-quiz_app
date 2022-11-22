@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Login Page</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/header.css"/>
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/app.js"></script>
+</head>
+
+<body>
+  <%- include('partials/_header') %>
+  <div class="scoreboard">
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+      <div class="login">
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="Enter email">
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Enter password">
+        <button type="submit" class="loginButton">Login</button>
+      </div>
+    </div>
+    </form>
+  </main>
+</body>
+
+</html>
+
+
+<!-- <form method="POST" action="/create">
+  <div>
+      <label>Title of the Quiz:</label>
+      <input type="text" name="quiz_title" placeholder="Enter the Title of the Quiz">
+      <button type="submit" class="loginButton">Login</button>
+  </div>
+    <label>Question 1</label>
+    <input type="text" name="question_01" placeholder="Enter the Question"> -->
+
+
+    <!-- <div>
+      <input type="checkbox" name="checkbox_answer_01_a">
+      <input type="text" name="answer_01_a" placeholder="Answer A">
+      <input type="checkbox" name="checkbox_answer_01_b">
+      <input type="text" name="answer_01_b" placeholder="Answer B">
+      <input type="checkbox" name="checkbox_answer_01_c">
+      <input type="text" name="answer_01_c" placeholder="Answer C">
+      <input type="checkbox" name="checkbox_answer_01_d">
+      <input type="text" name="answer_01_d" Placeholder="Answer D">
+    </div>
+</form> -->

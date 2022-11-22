@@ -1,7 +1,7 @@
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
 
@@ -15,4 +15,19 @@ body {
     rgba(163, 208, 219, 1) 74%,
     rgba(163, 208, 219, 1) 100%
   );
+
+  .scoreboard {
+    border: solid black;
+    width: 100%;
+    height: 300px;
+
+    display: flex;
+    justify-content: center;
+  }
+  .categories {
+    flex-wrap: wrap;
+    div {
+    border: solid black;
+    }
+  }
 }
