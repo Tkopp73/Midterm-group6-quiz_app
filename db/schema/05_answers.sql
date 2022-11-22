@@ -4,5 +4,5 @@ CREATE TABLE answers (
   quiz_submission_id INTEGER REFERENCES quiz_submissions(id),
   question_id INTEGER REFERENCES questions(id),
   content VARCHAR(255),
-  correct INTEGER NOT NULL
+  correct VARCHAR(255)
 );

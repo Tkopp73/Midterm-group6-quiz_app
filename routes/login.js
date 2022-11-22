@@ -6,20 +6,26 @@
  */
 
 const express = require('express');
-const { getUsersByEmail } = require('../db/queries/users');
+const { getUsersByEmail, getUsersById } = require('../db/queries/users');
 const router  = express.Router();
 
 router.get('/', (req, res) => {
-  console.log("Route.js is working");
-  res.render('login');
+  const user_id = req.session.users;
+  const templateVars = {
+    user: user_id,
+  };
+  console.log("Login route is working");
+  res.render('login', templateVars);
 });
 
 router.post('/', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  // console.log("PRINT:", email, password);
-  console.log(getUsersByEmail(email));
-  res.redirect('/')
+  getUsersByEmail(email, password).then((users) => {
+    console.log(users);
+    req.session.user_id = users.id;
+    res.redirect('/')
+  })
 });
 
 module.exports = router;
