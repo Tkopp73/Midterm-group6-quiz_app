@@ -15,11 +15,11 @@
       <span>Quiz App</span>
       <% if (!user) {%>
         <div>
-          <a button href="/login" class="btn" type="submit" class="btn btn-outline-dark">Login</button> </a>
-          <br><a button href="/register" class="btn" type="submit" class="btn btn-outline-dark">Register</button></a></br>
+          <a href="/login" type="submit" class="btn btn-outline-dark">Login </a>
+          <br><a href="/register" class="btn" type="submit" class="btn btn-outline-dark">Register</a></br>
         </div>
         <% } else { %>
-          <button type="submit" class="createQuiz">Create Quiz</button>
+          <a href="/create" type="submit" class="createQuiz">Create Quiz</a>
           <form class="loggedIn" action="/logout" method="POST">
             <div>
               <label>Logged In As: <%= email %><button type="submit" class="logoutButton">Logout</button></label>
