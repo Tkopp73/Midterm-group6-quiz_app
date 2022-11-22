@@ -18,19 +18,23 @@
 <body>
   <%- include('partials/_header') %>
   <div class="quizContainer">
-    <% for(let question of questions){ %>
-      <article class="eachQuestionContainer">
-        <div class="questionContainer">
-          <h3><%= question.question %></h3>
+    <article class="eachQuestionContainer">
+      <ol class="questionContainer">
+      <% for(let question of questions){ %>
+        <div>
+          <li><%= question.question %></li>
+          <div class="answersContainer">
+            <ol type="A">
+              <li><button><%= question.incorrectAnswers[0] %></button></li>
+              <li><button><%= question.incorrectAnswers[1] %></button></li>
+              <li><button><%= question.correctAnswer %></button></li>
+              <li><button><%= question.incorrectAnswers[2] %></button></li>
+            </ol>
+          </div>
         </div>
-        <div class="answersContainer">
-          <button><%= question.incorrectAnswers[0] %></button>
-          <button><%= question.incorrectAnswers[1] %></button>
-          <button><%= question.correctAnswer %></button>
-          <button><%= question.incorrectAnswers[2] %></button>
-        </div>
+          <% } %>
+        </ol>
       </article>
-      <% } %>
     </div>
   </body>
 </html>
