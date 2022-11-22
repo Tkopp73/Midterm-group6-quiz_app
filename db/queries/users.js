@@ -36,19 +36,18 @@ const getUsersById = (id) => {
 }
 
 const addQuiz = (quizForm, user) => {
-  const values = [quizForm.quiz_title, user, quizForm.question_01, quizForm.quiz_id, quizForm.answer_01_a, quizForm.a1a, quizForm.answer_01_b, quizForm.a1b, quizForm.answer_01_c, quizForm.a1c, quizForm.answer_01_d, quizForm.a1d];
+  const values = [quizForm.quiz_title, user, quizForm.question_01, quizForm.answer_01_a, quizForm.a1a, quizForm.answer_01_b, quizForm.a1b, quizForm.answer_01_c, quizForm.a1c, quizForm.answer_01_d, quizForm.a1d];
   const queryString = `
   WITH ins1 AS (
   INSERT INTO quizzes (name, user_id, category_id)
-  VALUES ($1, $2, 6)),
+  VALUES ($1, $2, 6)
+  RETURNING *),
   ins2 AS (
   INSERT INTO questions (content, quiz_id)
-  VALUES ($3, $4))
+  VALUES ($3, (SELECT id FROM ins1)))
   INSERT INTO answers (content, question_id, correct)
-  VALUES ($5, 1, $6),  ($7, 1, $8),  ($9, 1, $10), ($11, 1, $12)
+  VALUES ($4, 1, $5),  ($6, 1, $7),  ($8, 1, $9), ($10, 1, $11)
   RETURNING *;`;
-
-
 
   return db
     .query(queryString, values)
@@ -60,8 +59,6 @@ const addQuiz = (quizForm, user) => {
       console.log(err.message);
     });
 };
-
-
 
 module.exports = { getUsers, getUsersByEmail, getUsersById, addQuiz, };
 
