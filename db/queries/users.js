@@ -35,6 +35,7 @@ const getUsersById = (id) => {
   });
 }
 
+
 const addQuiz = (quizForm, user) => {
   const values = [quizForm.quiz_title, user, quizForm.question_01, quizForm.answer_01_a, quizForm.a1a, quizForm.answer_01_b, quizForm.a1b, quizForm.answer_01_c, quizForm.a1c, quizForm.answer_01_d, quizForm.a1d];
   const queryString = `
