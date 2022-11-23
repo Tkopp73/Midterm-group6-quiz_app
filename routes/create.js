@@ -16,16 +16,15 @@ router.get("/", (req, res) => {
   }
 });
 
-
 router.post("/", (req, res) => {
   console.log('req for create:', req.body);
   const quizForm = req.body;
   const user = req.session.user_id;
-  addQuiz(quizForm, user).then(() => {
+  addQuiz(quizForm, user)
+  .then(() => {
     console.log('Adding Quiz to the form!');
-    res.redirect('/');
+    res.redirect('/myQuiz');
   })
 });
-
 
 module.exports = router;

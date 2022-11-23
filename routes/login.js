@@ -24,6 +24,7 @@ router.post('/', (req, res) => {
   getUsersByEmail(email, password).then((users) => {
     console.log(users);
     req.session.user_id = users.id;
+    req.session.email = email;
     res.redirect('/')
   })
 });

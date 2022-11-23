@@ -37,7 +37,8 @@ const homeRoutes = require('./routes/home');
 const loginRoutes = require('./routes/login');
 const createRoutes = require('./routes/create');
 const registerRoutes = require('./routes/register');
-const quizRoutes = require('./routes/quiz');
+const quizRoutes = require('./routes/myQuiz');
+const shortURLRoutes = require('./routes/shortURL');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -48,7 +49,8 @@ app.use('/', homeRoutes);
 app.use('/login', loginRoutes);
 app.use('/create', createRoutes);
 app.use('/register', registerRoutes);
-app.use('/quiz', quizRoutes);
+app.use('/myQuiz', quizRoutes);
+app.use('/shortURL', shortURLRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
