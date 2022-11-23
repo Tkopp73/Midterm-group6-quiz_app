@@ -26,5 +26,11 @@ $(document).ready(function() {
   button.click(handleClick);
 
 
+  // let timestamp = new Date().getTime();
+  // console.log(timestamp)
+  // 1669232761862
+
+  // on sumbit take counter buffer and timestamp and insert into quiz submission 
+
 });
 
