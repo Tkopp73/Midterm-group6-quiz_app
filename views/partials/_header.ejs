@@ -10,9 +10,13 @@
 <body>
    <!-- Top nav bar -->
    <nav class="navbar-image">
-    <img src="https://cdn.pixabay.com/photo/2021/02/03/05/37/question-mark-5976736_1280.png">
+    <a href="/">
+      <img src="https://cdn.pixabay.com/photo/2021/02/03/05/37/question-mark-5976736_1280.png">
+    </a>
+    <div class="navbar-title">
+      <span> Quiz App</span>
+    </div>
     <div class="navbar-login">
-      <span>Quiz App</span>
       <% if (!user) {%>
         <div>
           <a href="/login" type="submit" class="btn btn-outline-dark">Login </a>
