@@ -25,7 +25,6 @@ const getUsersById = (id) => {
   const queryString = `SELECT * FROM users WHERE id = $1;`;
   const values = [id];
 
-<<<<<<< HEAD
   return db.query(queryString, values)
     .then(result => {
       return result.rows[0];
@@ -61,17 +60,7 @@ const getQuizByURL = (shortURL) => {
 
 const getQuizByID = (id) => {
   const values = [id];
-=======
-
-const addQuiz = (quizForm, user) => {
-  const values = [quizForm.quiz_title, user, quizForm.question_01, quizForm.answer_01_a, quizForm.a1a, quizForm.answer_01_b, quizForm.a1b, quizForm.answer_01_c, quizForm.a1c, quizForm.answer_01_d, quizForm.a1d];
->>>>>>> feature/myResult
   const queryString = `
-  SELECT users.*, quizzes.*, questions.*, answers.*
-  FROM users
-  JOIN quizzes ON quizzes.user_id = users.id
-  JOIN questions ON questions.quiz_id = quizzes.id
-  JOIN answers ON answers.question_id = questions.id
   WHERE users.id =$1
   GROUP BY users.id, quizzes.id, questions.id, answers.id;
   `;
