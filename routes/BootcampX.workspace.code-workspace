@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": ".."
+    },
+    {
+      "path": "../../tinyapp"
+    },
+    {
+      "path": "../../tweeter"
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "mhutchie.git-graph"
+    ]
+  }
+}

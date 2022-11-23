@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Quiz Page</title>
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/header.css" />
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <!-- <script defer type="text/javascript" src="/scripts/helperFunctions/forQuiz.js"></script> -->
+</head>
+<body>
+  <%- include('partials/_header') %>
+  <div class="quizContainer">
+    <article class="eachQuestionContainer">
+      <ol class="questionContainer">
+      <% for(let question of questions){ %>
+        <div>
+          <li><%= question.question %></li>
+          <div class="answersContainer">
+            <ol type="A">
+              <li><button><%= question.incorrectAnswers[0] %></button></li>
+              <li><button><%= question.incorrectAnswers[1] %></button></li>
+              <li><button><%= question.correctAnswer %></button></li>
+              <li><button><%= question.incorrectAnswers[2] %></button></li>
+            </ol>
+          </div>
+        </div>
+          <% } %>
+        </ol>
+      </article>
+    </div>
+  </body>
+</html>
+
+
+
