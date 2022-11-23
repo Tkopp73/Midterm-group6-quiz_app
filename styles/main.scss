@@ -1,3 +1,4 @@
+
 body {
   display: flex;
   flex-direction: column;
@@ -18,16 +19,204 @@ body {
 
   .scoreboard {
     border: solid black;
-    width: 100%;
+    width: 95%;
     height: 300px;
-
+    margin: 1em;
     display: flex;
     justify-content: center;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 1px black;
+    font-family: sans;
+    color: #DBBE81;
   }
-  .categories {
-    flex-wrap: wrap;
-    div {
+
+  #categories {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border: solid black;
+    width: 95%;
+  }
+
+  #film {
+    width: 500px;
+    height: 60px;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 15px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#7D9EB5), to(#A2B7DB));
+    border: 1px solid;
+    overflow: hidden;
+    position: relative;
+    z-index: 20;
+
+    &:after {
+      background: #fff;
+      content: "";
+      height: 155px;
+      left: -75px;
+      opacity: .2;
+      position: absolute;
+      top: -50px;
+      transform: rotate(35deg);
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+      width: 50px;
+      z-index: -10;
     }
   }
+
+  #film:hover {
+    box-shadow: (0px 0px 15px 5px #fff);
+
+    &:after {
+      left: 120%;
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+  }
+
+  #history {
+    width: 500px;
+    height: 60px;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 15px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#7D9EB5), to(#A2B7DB));
+    border: 1px solid;
+    overflow: hidden;
+    position: relative;
+    z-index: 20;
+
+    &:after {
+      background: #fff;
+      content: "";
+      height: 155px;
+      left: -75px;
+      opacity: .2;
+      position: absolute;
+      top: -50px;
+      transform: rotate(35deg);
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+      width: 50px;
+      z-index: -10;
+    }
+  }
+
+  #history:hover {
+    box-shadow: (0px 0px 15px 5px #fff);
+
+    &:after {
+      left: 120%;
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+  }
+
+
+
+  #general-knowledge {
+    width: 500px;
+    height: 60px;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 15px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#7D9EB5), to(#A2B7DB));
+    border: 1px solid;
+    overflow: hidden;
+    position: relative;
+    z-index: 20;
+
+    &:after {
+      background: #fff;
+      content: "";
+      height: 155px;
+      left: -75px;
+      opacity: .2;
+      position: absolute;
+      top: -50px;
+      transform: rotate(35deg);
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+      width: 50px;
+      z-index: -10;
+    }
+  }
+
+  #general-knowledge:hover {
+    box-shadow: (0px 0px 15px 5px #fff);
+
+    &:after {
+      left: 120%;
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+  }
+
+  #food-drink {
+    width: 500px;
+    height: 60px;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 15px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#7D9EB5), to(#A2B7DB));
+    border: 1px solid;
+    overflow: hidden;
+    position: relative;
+    z-index: 20;
+
+    &:after {
+      background: #fff;
+      content: "";
+      height: 155px;
+      left: -75px;
+      opacity: .2;
+      position: absolute;
+      top: -50px;
+      transform: rotate(35deg);
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+      width: 50px;
+      z-index: -10;
+    }
+  }
+
+  #food-drink:hover {
+    box-shadow: (0px 0px 15px 5px #fff);
+
+    &:after {
+      left: 120%;
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+  }
+
+  #music {
+    width: 500px;
+    height: 60px;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 15px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#7D9EB5), to(#A2B7DB));
+    border: 1px solid;
+    overflow: hidden;
+    position: relative;
+    z-index: 20;
+
+    &:after {
+      background: #fff;
+      content: "";
+      height: 155px;
+      left: -75px;
+      opacity: .2;
+      position: absolute;
+      top: -50px;
+      transform: rotate(35deg);
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+      width: 50px;
+      z-index: -10;
+    }
+  }
+
+  #music:hover {
+    box-shadow: (0px 0px 5px 5px #fff);
+
+    &:after {
+      left: 120%;
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+  }
+
 }
