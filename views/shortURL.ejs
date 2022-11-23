@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Login Page</title>
+  <title>Quiz</title>
 
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -19,20 +19,16 @@
 </head>
 
 <body>
-  <%- include('partials/_header') %>
-  <div class="scoreboard">
-    <h1>Login</h1>
-    <form action="/login" method="POST">
-      <div class="login">
-        <label for="email">Email</label>
-        <input type="email" name="email" placeholder="Enter email">
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Enter password">
-        <button type="submit" class="loginButton">Login</button>
-      </div>
-    </div>
-    </form>
+    <h1><%= quizName% ></h1>
+    <%= for (const question of questions) { %>
+    <span class="question"><%= question %></span>
+        <%= for (const answer of answers) { %>
+        <button class="answer">Ans 1</button>
+        <button class="answer">Ans 2</button>
+        <button class="answer">Ans 3</button>
+        <button class="answer">Ans 4</button>
+    <%= }
+    };%>
+    <button type="Submit">Submit</button>
 </body>
 </html>
-
-

@@ -25,6 +25,19 @@
     <form method="POST" action="/create">
       <div>
           <label>Title of the Quiz:</label>
+<<<<<<< HEAD
+          <input type="text" name="quiz_title">
+      </div>
+      <% for(let i = 1; i <= 2; i++) { %>
+        <label>Question <%= i %><%= i %></label>
+        <input type="text" name="question_<%= i %><%= i %>" placeholder="Enter Question">
+        <% for(let j = 1; j <= 4; j++) { %>
+        <input type="hidden" name="cb_<%= i %><%= j %>" value="0">
+        <input type="checkbox" name="cb_<%= i %><%= j %>">
+        <input type="text" name="as_<%= i %><%= j %>">
+      <% }
+    } %>
+=======
           <input type="text" name="quiz_title" placeholder="Enter the Title of the Quiz">
         </div>
         <% for (let i = 1; i <= 10; i++ ) {%>
@@ -40,9 +53,10 @@
         </div>
      <% }; %>
 
+>>>>>>> feature/myResult
       <button type="submit" class="Create">Create</button>
     </form>
-  </main>
+    </div>
 </body>
 
 </html>

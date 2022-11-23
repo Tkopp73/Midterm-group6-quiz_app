@@ -8,50 +8,158 @@ const getUsers = () => {
 };
 
 const getUsersByEmail = (email, password) => {
-  const querryString = `SELECT * FROM users WHERE email = $1 AND password = $2`;
-  const input = [email, password];
+  const queryString = `SELECT * FROM users WHERE email = $1 AND password = $2`;
+  const values = [email, password];
 
-  return db.query(querryString, input)
-  .then(result => {
-    return result.rows[0];
-  })
-  .catch(err => {
-    console.log(err.message);
-    return err;
-  });
-}
+  return db.query(queryString, values)
+    .then(result => {
+      return result.rows[0];
+    })
+    .catch(err => {
+      console.log(err.message);
+      return err;
+    });
+};
 
 const getUsersById = (id) => {
-  const querryString = `SELECT * FROM users WHERE id = $1`;
-  const input = [id];
+  const queryString = `SELECT * FROM users WHERE id = $1;`;
+  const values = [id];
 
-  return db.query(querryString, input)
-  .then(result => {
-    return result.rows[0];
-  })
-  .catch(err => {
-    console.log(err.message);
-    return err;
-  });
-}
+  return db.query(queryString, values)
+    .then(result => {
+      return result.rows[0];
+    })
+    .catch(err => {
+      console.log(err.message);
+      return err;
+    });
+};
 
+const getQuizByURL = (shortURL) => {
+  const values = [shortURL];
+  const queryString = `
+  SELECT users.*, quizzes.*, questions.*, answers.*
+  FROM users
+  JOIN quizzes ON quizzes.user_id = users.id
+  JOIN questions ON questions.quiz_id = quizzes.id
+  JOIN answers ON answers.question_id = questions.id
+  WHERE quizzes.shortURL = $1
+  GROUP BY users.id, quizzes.id, questions.id, answers.id;
+  `;
+
+  return db.query(queryString, values)
+    .then(result => {
+      return result.rows;
+    })
+    .catch(err => {
+      console.log(err.message);
+      return err;
+    });
+};
+
+
+const getQuizByID = (id) => {
+  const values = [id];
+  const queryString = `
+  WHERE users.id =$1
+  GROUP BY users.id, quizzes.id, questions.id, answers.id;
+  `;
+
+  return db.query(queryString, values)
+    .then(result => {
+      return result.rows;
+    })
+    .catch(err => {
+      console.log(err.message);
+      return err;
+    });
+};
+
+
+const getQuizByQuizID = (quiz_id) => {
+  const values = [quiz_id];
+  const queryString = `
+  SELECT questions.qcontent, answers.acontent FROM questions
+  JOIN answers ON answers.question_id = questions.id
+  WHERE questions.quiz_id = $1;`;
+  return db.query(queryString, values)
+    .then(result => {
+      console.log(result.rows);
+      return result.rows;
+    })
+    .catch(err => {
+      console.log(err.message);
+      return err;
+    });
+};
 
 const addQuiz = (quizForm, user) => {
-  const values = [quizForm.quiz_title, user, quizForm.question_01, quizForm.answer_01_a, quizForm.a1a, quizForm.answer_01_b, quizForm.a1b, quizForm.answer_01_c, quizForm.a1c, quizForm.answer_01_d, quizForm.a1d];
-  const queryString = `
+  const shortURL = generateRandomString();
+  const user_id = user;
+  const quizTitle = quizForm.quiz_title;
+  let newForm = {};
+  let onlyAsForm = {};
+  let allCb = [];
+  let tempKey = "";
+  const allKeysForm = Object.keys(quizForm);
+  for (keyForm of allKeysForm) {
+    if (keyForm.startsWith('question')) {
+      tempKey = keyForm;
+      newForm[keyForm] = { content: quizForm[keyForm] };
+    } else if (keyForm.startsWith('as')) {
+      newForm[tempKey][keyForm] = quizForm[keyForm];
+      onlyAsForm[keyForm] = { quizForm: [keyForm] };
+    } else if (keyForm.startsWith('cb')) {
+      if (Array.isArray(quizForm[keyForm])) {
+        // newForm[tempKey][keyForm] = 'on';
+        allCb.push('on');
+      } else {
+        // newForm[tempKey][keyForm] = null;
+        allCb.push(null);
+      }
+    }
+  };
+
+  let queryString = `
   WITH ins1 AS (
-  INSERT INTO quizzes (name, user_id, category_id)
-  VALUES ($1, $2, 6)
+  INSERT INTO quizzes (name, user_id, category_id, shortURL)
+  VALUES ('${quizTitle}', '${user_id}', 6, '${shortURL}')
   RETURNING *),
   ins2 AS (
-  INSERT INTO questions (content, quiz_id)
-  VALUES ($3, (SELECT id FROM ins1)))
-  INSERT INTO answers (content, question_id, correct)
-  VALUES ($4, 1, $5),  ($6, 1, $7),  ($8, 1, $9), ($10, 1, $11)
-  RETURNING *;`;
+  INSERT INTO questions (qContent, quiz_id) VALUES`;
 
-  return db
-    .query(queryString, values)
+  let counter = 1;
+  for (question in newForm) {
+    if (counter < Object.keys(newForm).length) {
+      queryString += `('${newForm[question].content}', (SELECT id FROM ins1)),`;
+      counter++;
+    } else {
+      queryString += `('${newForm[question].content}', (SELECT id FROM ins1)) RETURNING *)
+    INSERT INTO answers(aContent, question_id, correct)
+    VALUES`;
+    }
+  }
+
+  counter = 1;
+  let cbcounter = 0;
+  for (newKey in newForm) {
+    for (eachQKey in newForm[newKey]) {
+      if (eachQKey !== 'content') {
+        let tempCb = allCb[cbcounter];
+
+        if (counter < allCb.length) {
+          console.log(counter);
+          queryString += `('${newForm[newKey][eachQKey]}', (SELECT id FROM ins2 WHERE qcontent = '${newForm[newKey].content}'), '${tempCb}'),`;
+          counter++;
+          cbcounter++;
+
+        } else {
+          queryString += `('${newForm[newKey][eachQKey]}', (SELECT id FROM ins2 WHERE qcontent = '${newForm[newKey].content}'), '${tempCb}') RETURNING *;`;
+        }
+      }
+    }
+  };
+  return db.query(queryString)
     .then((result) => {
       console.log(result.rows);
       return result.rows;
@@ -61,5 +169,25 @@ const addQuiz = (quizForm, user) => {
     });
 };
 
-module.exports = { getUsers, getUsersByEmail, getUsersById, addQuiz, };
+const addUser = (newUserName, newUserEmail, newPassword) => {
+  const values = [newUserName, newUserEmail, newPassword];
+  const queryString = `
+  INSERT INTO users (name, email, password)
+  VALUES ($1, $2, $3);`;
+  return db.query(queryString, values)
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+const generateRandomString = function() {
+  return Math.random().toString(36).substring(2, 8);
+};
+
+
+module.exports = { getUsers, getUsersByEmail, getUsersById, addQuiz, addUser, getQuizByID, getQuizByURL, getQuizByQuizID };
 
