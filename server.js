@@ -39,6 +39,7 @@ const homeRoutes = require('./routes/home');
 const loginRoutes = require('./routes/login');
 const createRoutes = require('./routes/create');
 
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`

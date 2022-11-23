@@ -24,6 +24,7 @@
         </div>
         <% } else { %>
           <a href="/create" type="submit" class="createQuiz">Create Quiz</a>
+          <br><a href="/myQuiz" type="submit" class="myQuiz">My Quiz</a></br>
           <form class="loggedIn" action="/logout" method="POST">
             <div>
               <label>Logged In As: <%= email %><button type="submit" class="logoutButton">Logout</button></label>
