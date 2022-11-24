@@ -64,37 +64,18 @@ router.post('/:shortURL', (req, res) => {
   console.log('USER Quiz submitted!!!!!!!!!!!!!');
   let counterBuffer = 10;
   const userID = req.session.user_id;
-
-
-  // let quizID = getQuizIDWithShortURL(queryString1);
-  // setTimeout(() => {
-  //   console.log('QuizID:', quizID);
-    // const {...newQuizID } = quizID;
-    // console.log( 'newQuizID', newQuizID );
-    // let qID
-    // for (let quizI in quizID) {
-    //   for (let qid in quizI) {
-    //     console.log('QuizID', qid);
-    //   }
-    // }
-
-    const values = [counterBuffer, userID];
-
-    // console.log('values', values);
-
-
-    const queryString2 = `
+  const values = [counterBuffer, userID];
+  const queryString2 = `
     INSERT INTO quiz_submissions (grade, date_submit, user_id, quiz_id)
     VALUES ($1, (CAST(NOW() AS TIMESTAMP)), $2, (SELECT quizzes.id FROM quizzes
     WHERE shortURL = '${sURL}'));
     `;
 
-    console.log(queryString2);
+  console.log(queryString2);
 
-    submitApiQuiz(queryString2, values);
+  submitApiQuiz(queryString2, values);
 
-    res.redirect('/myQuiz');
-  // }, 500)
+  res.redirect('/myQuiz');
 });
 
 
