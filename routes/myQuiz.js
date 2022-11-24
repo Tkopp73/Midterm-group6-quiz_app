@@ -24,41 +24,5 @@ router.get('/', (req, res) => {
   }
 });
 
-/*
-[
-  {
-    user_id: 1,
-    name: 'MCU',
-    id: 1,
-    shorturl: 'abc123',
-    category_id: 1,
-    grade: 90
-  },
-  {
-    user_id: 1,
-    name: 'My Hero',
-    id: 18,
-    shorturl: '1wh9y2',
-    category_id: 6,
-    grade: 90
-  },
-  {
-    user_id: 1,
-    name: 'qjieref/lwkds',
-    id: 19,
-    shorturl: 'mts88y',
-    category_id: 6,
-    grade: 90
-  },
-  {
-    user_id: 1,
-    name: 'Please Work',
-    id: 22,
-    shorturl: 'wn6aj2',
-    category_id: 6,
-    grade: 90
-  }
-]
-*/
 
 module.exports = router;
