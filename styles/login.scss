@@ -1,0 +1,68 @@
+
+.vsc-initialized {
+  display: flex;
+  align-items: flex-start;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+}
+
+.loginTitle {
+  display: flex;
+  flex-direction: column;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 1px black;
+  font-family: sans;
+  color: #DBBE81;
+}
+
+.login {
+  // align-items: center;
+  flex-direction: column;
+}
+
+.loginComponent {
+  display: flex;
+  margin: 10px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 1px black;
+  font-family: sans;
+  color: #DBBE81;
+}
+
+.loginButton {
+  width: 175px;
+  height: 60px;
+  padding: 1em;
+  margin-top: 1em;
+  border-radius: 15px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#7D9EB5), to(#A2B7DB));
+  border: 1px solid;
+  overflow: hidden;
+  position: relative;
+  z-index: 20;
+
+  &:after {
+    background: #fff;
+    content: "";
+    height: 155px;
+    left: -75px;
+    opacity: .2;
+    position: absolute;
+    top: -50px;
+    transform: rotate(35deg);
+    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    width: 50px;
+    z-index: -10;
+  }
+}
+
+.loginButton:hover {
+  box-shadow: (0px 0px 15px 5px #fff);
+
+  &:after {
+    left: 120%;
+    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+}

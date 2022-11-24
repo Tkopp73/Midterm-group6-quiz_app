@@ -17,6 +17,7 @@ router.get('/:shortURL', (req, res) => {
   res.render('shortURL', templateVars);
   })
 });
+res.redirect(`/urls/${shortURL}`);
 
 // const getQnA(qContent, aContent) => {
 //     questions = [];

@@ -35,16 +35,15 @@ const getUsersById = (id) => {
     });
 };
 
-const getQuizByURL = (shortURL) => {
-  const values = [shortURL];
+const getAllByUserID = (id) => {
+  const values = [id];
   const queryString = `
-  SELECT users.*, quizzes.*, questions.*, answers.*
+  SELECT users.id As user_id, users.name, quizzes.*, quiz_submissions.grade
   FROM users
   JOIN quizzes ON quizzes.user_id = users.id
-  JOIN questions ON questions.quiz_id = quizzes.id
-  JOIN answers ON answers.question_id = questions.id
-  WHERE quizzes.shortURL = $1
-  GROUP BY users.id, quizzes.id, questions.id, answers.id;
+  JOIN quiz_submissions ON quiz_submissions.user_id = users.id
+  WHERE users.id = $1
+  GROUP BY users.id, quizzes.id, quiz_submissions.grade;
   `;
 
   return db.query(queryString, values)
@@ -56,6 +55,26 @@ const getQuizByURL = (shortURL) => {
       return err;
     });
 };
+
+const getQuizByURL = (shortURL) => {
+  const values = [shortURL];
+  const queryString = `
+  SELECT quizzes.*, questions.*, answers.*
+  FROM quizzes
+  JOIN questions ON quizzes.id = questions.quiz_id
+  JOIN answers ON  questions.id = answers.question_id
+  WHERE shortURL = '$1'
+  GROUP BY quizzes.id, questions.id, answers.id
+  `;
+  return db.query(queryString, values)
+    .then(result => {
+      return result.rows;
+    })
+    .catch(err => {
+      console.log(err.message);
+      return err;
+    });
+}
 
 
 const getQuizByID = (id) => {
@@ -189,5 +208,5 @@ const generateRandomString = function() {
 };
 
 
-module.exports = { getUsers, getUsersByEmail, getUsersById, addQuiz, addUser, getQuizByID, getQuizByURL, getQuizByQuizID };
+module.exports = { getUsers, getAllByUserID, getUsersByEmail, getUsersById, addQuiz, addUser, getQuizByID, getQuizByQuizID, getQuizByURL };
 

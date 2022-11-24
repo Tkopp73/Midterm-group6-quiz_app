@@ -29,13 +29,18 @@
           <th>Score</th>
         </tr>
         <tbody>
-          <td><%= quizName %></td>
-          <td><a href="/<%= shortURL%>"><%= shortURL %></a></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
+          <% for(let obj of quizzes) { %>
+            <tr>
+              <td><%= obj.name %></td>
+              <td><a href ="/:shortURL"><%= obj.shorturl %></a></td>
+              <td></td>
+              <td><%= obj.grade %></td>
+            </tr>
+          <% } %>
         </tbody>
       </table>
       </article>
     </div>
   </body>
 </html>
+

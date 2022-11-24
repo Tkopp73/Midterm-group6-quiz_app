@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Quiz Page</title>
+  <title>The User Quiz Page</title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
@@ -21,24 +21,26 @@
   <div class="quizContainer">
     <article class="eachQuestionContainer">
       <ol>
-      <% for(let question of questions){ %>
+        <!-- !!!!!!!! RENAME !!!!!!!! -->
+      <!-- <% for(let question of questions){ %> -->
         <div class="questionContainer">
-          <li><%= question.question %></li>
+          <!-- <li><%= question.question %></li> -->
           <div class="answersContainer">
             <ol type="A">
-              <li><button value="wrong" class="answers"><%= question.incorrectAnswers[0] %></button></li>
-              <li><button value="wrong" class="answers"><%= question.incorrectAnswers[1] %></button></li>
+              <!-- <li><button value="wrong" class="answers"><%= question.incorrectAnswers[0] %></button></li> -->
+              <!-- <li><button value="wrong" class="answers"><%= question.incorrectAnswers[1] %></button></li>
               <li><button value="right" class="answers"><%= question.correctAnswer %></button></li>
-              <li><button value="wrong" class="answers"><%= question.incorrectAnswers[2] %></button></li>
+              <li><button value="wrong" class="answers"><%= question.incorrectAnswers[2] %>
+              </button></li> -->
             </ol>
           </div>
         </div>
-          <% } %>
+          <!-- <% } %> -->
         </ol>
       </article>
     </div>
-    <form action="" method="">
-      <div id="result" ></div>
+    <form >
+      <div id="result" action="" method=""></div>
       <button id="submitButton" type="submit">Submit</button>
     </form>
   </body>

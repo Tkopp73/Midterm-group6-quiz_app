@@ -16,19 +16,36 @@
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
+  <script src="/scripts/userQuiz.js"></script>
 </head>
 
 <body>
+  <%- include('partials/header') %>
+  <div class="userQuizContainer">
     <h1><%= quizName% ></h1>
-    <%= for (const question of questions) { %>
-    <span class="question"><%= question %></span>
-        <%= for (const answer of answers) { %>
-        <button class="answer">Ans 1</button>
-        <button class="answer">Ans 2</button>
-        <button class="answer">Ans 3</button>
-        <button class="answer">Ans 4</button>
-    <%= }
-    };%>
-    <button type="Submit">Submit</button>
+    <ol>
+      <%= for (const question of questions) { %>
+        <article class="eachUserQuestionContainer">
+          <div class="userQuestionContainer">
+            <li><%= question %></li>
+          </div>
+          <div class="userAnswerContainer">
+          <%= for (const answer of answers) { %>
+            <ol>
+              <li><button class="userAnswer">Ans 1</button></li>
+              <li><button class="userAnswer">Ans 2</button></li>
+              <li><button class="userAnswer">Ans 3</button></li>
+              <li><button class="userAnswer">Ans 4</button></li>
+            </ol>
+            <% } %>
+          </div>
+        </article>
+      <% }; %>
+    </ol>
+        <form action="" method="">
+          <div id="userResult"></div>
+          <button id="userSubmitButton" type="Submit">Submit</button>
+        </form>
+  </div>
 </body>
 </html>

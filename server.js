@@ -38,8 +38,9 @@ const quizRoutes = require('./routes/questions');
 const homeRoutes = require('./routes/home');
 const loginRoutes = require('./routes/login');
 const createRoutes = require('./routes/create');
+const userQuizRoutes = require('./routes/userQuiz');
 const registerRoutes = require('./routes/register');
-const quizRoutes = require('./routes/myQuiz');
+const myQuizRoutes = require('./routes/myQuiz');
 const shortURLRoutes = require('./routes/shortURL');
 
 
@@ -53,17 +54,15 @@ app.use('/quiz', quizRoutes);
 app.use('/', homeRoutes);
 app.use('/login', loginRoutes);
 app.use('/create', createRoutes);
+app.use('/userQuiz', userQuizRoutes);
 app.use('/register', registerRoutes);
-app.use('/myQuiz', quizRoutes);
+app.use('/myQuiz', myQuizRoutes);
 app.use('/shortURL', shortURLRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
