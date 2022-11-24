@@ -15,6 +15,8 @@ nav {
 
   .navbar-login {
     display: flex;
+    align-items: center;
+    flex-direction: column;
     padding: 6px 12px;
   }
 
@@ -27,4 +29,13 @@ nav {
     }
   }
 
+  .logoutButton{
+    margin: 5px;
+    border-radius: 15px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#A2B7DB));
+  }
+
+  .logoutButton:hover {
+    box-shadow: (7px 5px 15px #fff);
+  }
 }
