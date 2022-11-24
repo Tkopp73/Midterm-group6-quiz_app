@@ -38,12 +38,11 @@ const getUsersById = (id) => {
 const getAllByUserID = (id) => {
   const values = [id];
   const queryString = `
-  SELECT users.id As user_id, users.name, quizzes.*, quiz_submissions.grade
+  SELECT users.id As user_id, users.name, quizzes.*
   FROM users
   JOIN quizzes ON quizzes.user_id = users.id
-  JOIN quiz_submissions ON quiz_submissions.user_id = users.id
   WHERE users.id = $1
-  GROUP BY users.id, quizzes.id, quiz_submissions.grade;
+  GROUP BY users.id, quizzes.id;
   `;
 
   return db.query(queryString, values)
@@ -57,14 +56,15 @@ const getAllByUserID = (id) => {
 };
 
 const getQuizByURL = (shortURL) => {
+  console.log(shortURL);
   const values = [shortURL];
   const queryString = `
   SELECT quizzes.*, questions.*, answers.*
   FROM quizzes
   JOIN questions ON quizzes.id = questions.quiz_id
   JOIN answers ON  questions.id = answers.question_id
-  WHERE shortURL = '$1'
-  GROUP BY quizzes.id, questions.id, answers.id
+  WHERE shortURL = $1
+  GROUP BY answers.id, quizzes.id, questions.id;
   `;
   return db.query(queryString, values)
     .then(result => {
@@ -74,7 +74,7 @@ const getQuizByURL = (shortURL) => {
       console.log(err.message);
       return err;
     });
-}
+};
 
 
 const getQuizByID = (id) => {
@@ -85,7 +85,7 @@ const getQuizByID = (id) => {
   JOIN quizzes ON quizzes.user_id = users.id
   JOIN questions ON questions.quiz_id = quizzes.id
   JOIN answers ON answers.question_id = questions.id
-  WHERE users.id =$1
+  WHERE users.id = $1
   GROUP BY users.id, quizzes.id, questions.id, answers.id;
   `;
 
@@ -208,10 +208,40 @@ const addUser = (newUserName, newUserEmail, newPassword) => {
     });
 };
 
+
+const submitApiQuiz = (queryString, values) => {
+  return db.query(queryString, values)
+    .then((res) => {
+      console.log("res.rows:", res.rows);
+      return res.rows;
+    })
+    .catch((error) => {
+      console.log('error:', error.message);
+      return error;
+    });
+};
+
+
+const getQuizIDWithShortURL = (queryString) => {
+
+  return db.query(queryString)
+  .then((res) => {
+    console.log("res.rows:", res.rows[0]);
+    return res.rows[0];
+  })
+  .catch((err) => {
+    console.log('err', err.message);
+    return err;
+  })
+}
+
+
+
+
 const generateRandomString = function() {
   return Math.random().toString(36).substring(2, 8);
 };
 
 
-module.exports = { getUsers, getAllByUserID, getUsersByEmail, getUsersById, addQuiz, addUser, getQuizByID, getQuizByQuizID, getQuizByURL };
+module.exports = { getUsers, getAllByUserID, getUsersByEmail, getUsersById, addQuiz, addUser, getQuizByID, getQuizByQuizID, getQuizByURL, generateRandomString, submitApiQuiz, getQuizIDWithShortURL };
 

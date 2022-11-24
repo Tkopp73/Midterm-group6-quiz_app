@@ -1,24 +1,101 @@
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const { getQuizByURL } = require("../db/queries/users");
+const { submitApiQuiz } = require("../db/queries/users");
+const { getQuizIDWithShortURL } = require("../db/queries/users");
 
 router.get('/:shortURL', (req, res) => {
   const shortURL = req.params.shortURL;
-  console.log(shortURL);
+
   getQuizByURL(shortURL)
-  .then((object) => {
-    console.log(object);
-    const obj = Object.values(object)[0];
-    const templateVars = {
-      quizName: obj.name,
-      shortURL: obj.shorturl,
-    };
-  console.log("ShortURL route is working");
-  res.render('shortURL', templateVars);
-  })
+    .then((object) => {
+      let asArray = []; // All answer contents in an Aarray
+      let cbArray = []; // All corret answers in an Array
+      let qArray = []; // All question contents in an array
+      let quizTitle = '';
+      let url = '';
+      for (obj of object) {
+        quizTitle = obj.name;
+        url = obj.shorturl;
+        for (key in obj) {
+          if (key === 'acontent') {
+            asArray.push(obj[key]);
+          } else if (key === 'correct') {
+            cbArray.push(obj[key]);
+          } else if (key.includes('qcontent')) {
+            qArray.push(obj[key]);
+          }
+        }
+      }
+      qArray = [...new Set(qArray)];
+
+      let correct = [];
+      let otherAnswers = [];
+
+      for (let i = 0; i < asArray.length; i++) {
+        if (cbArray[i] === "on") {
+          correct.push(asArray[i]);
+        } else {
+          otherAnswers.push(asArray[i]);
+        }
+      }
+      const user_id = req.session.user_id;
+      const email = req.session.email;
+      const templateVars = {
+        user: user_id,
+        email: email,
+        quizName: quizTitle,
+        shortURL: url,
+        questions: qArray,
+        answers: otherAnswers,
+        correct: correct
+      };
+      console.log('templateVars:', templateVars);
+      console.log("ShortURL route is working");
+      res.render('shortURL', templateVars);
+    })
+    .catch((err) => { console.log(err.message); });
+
 });
 
+router.post('/:shortURL', (req, res) => {
+  const sURL = req.params.shortURL;
+  console.log('USER Quiz submitted!!!!!!!!!!!!!');
+  let counterBuffer = 10;
+  const userID = req.session.user_id;
+
+
+  // let quizID = getQuizIDWithShortURL(queryString1);
+  // setTimeout(() => {
+  //   console.log('QuizID:', quizID);
+    // const {...newQuizID } = quizID;
+    // console.log( 'newQuizID', newQuizID );
+    // let qID
+    // for (let quizI in quizID) {
+    //   for (let qid in quizI) {
+    //     console.log('QuizID', qid);
+    //   }
+    // }
+
+    const values = [counterBuffer, userID];
+
+    // console.log('values', values);
+
+
+    const queryString2 = `
+    INSERT INTO quiz_submissions (grade, date_submit, user_id, quiz_id)
+    VALUES ($1, (CAST(NOW() AS TIMESTAMP)), $2, (SELECT quizzes.id FROM quizzes
+    WHERE shortURL = '${sURL}'));
+    `;
+
+    console.log(queryString2);
+
+    submitApiQuiz(queryString2, values);
+
+    res.redirect('/myQuiz');
+  // }, 500)
+});
 
 
 module.exports = router;
