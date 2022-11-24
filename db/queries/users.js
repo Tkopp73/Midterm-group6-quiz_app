@@ -80,16 +80,12 @@ const getQuizByURL = (shortURL) => {
 const getQuizByID = (id) => {
   const values = [id];
   const queryString = `
-<<<<<<< HEAD
-  WHERE users.id =$1
-=======
   SELECT users.*, quizzes.*, questions.*, answers.*
   FROM users
   JOIN quizzes ON quizzes.user_id = users.id
   JOIN questions ON questions.quiz_id = quizzes.id
   JOIN answers ON answers.question_id = questions.id
   WHERE users.id = $1
->>>>>>> myNewBranch
   GROUP BY users.id, quizzes.id, questions.id, answers.id;
   `;
 
