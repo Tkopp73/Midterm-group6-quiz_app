@@ -6,9 +6,12 @@ const { generateRandomString } = require("../db/queries/users");
 
 router.get('/', (req, res) => {
   // console.log(req.query);
-  const user_id = req.session.users;
+  const user_id = req.session.user_id;
+  const email = req.session.email;
+
   let templateVars = {
     user: user_id,
+    email: email
   };
   if (req.query.film) {
     https.get('https://the-trivia-api.com/api/questions?categories=film_and_tv&limit=10', res => {
