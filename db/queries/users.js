@@ -71,8 +71,6 @@ const getAllByUserID = (id) => {
 };
 // used on myQuiz
 const getMyQuizByUserID = (id) => {
-  console.log('      hihihiihiihi      ');
-  console.log(typeof id, id);
   const values = [id];
   const queryString = `
   SELECT users.id As user_id, users.name, quizzes.*, quiz_submissions.grade
@@ -81,6 +79,7 @@ const getMyQuizByUserID = (id) => {
   JOIN users ON quiz_submissions.user_id = users.id
   WHERE users.id = $1
   GROUP BY users.id, quizzes.id, quiz_submissions.id;
+
   `;
 
   return db.query(queryString, values)

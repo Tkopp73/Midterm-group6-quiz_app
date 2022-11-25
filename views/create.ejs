@@ -24,16 +24,20 @@
   <div class="createQuizContainer">
     <h1>Create Quiz</h1>
     <form method="POST" action="/create">
-      <div>
+      <div class="quizTitleContainer">
           <label>Title of the Quiz:</label>
-          <input type="text" name="quiz_title" placeholder="Enter the Title of the Quiz">
-          <label>Hidden Quizes</label>
-          <input type="checkbox" name="isHidden">
+          <input type="text" name="quiz_title" placeholder="Title of the Quiz">
+          <div class="hidden">
+            <label> To Hide Quiz =></label>
+            <input type="checkbox" name="isHidden">
+          </div>
         </div>
         <% for (let i =1; i <= 5; i++ ) {%>
-        <label>Question <%= i %></label>
-        <input type="text" name="question_<%= i %>" placeholder="Enter the Question">
-        <div>
+        <div class="questionTitleContainer">
+          <label>Question <%= i %></label>
+          <input type="text" name="question_<%= i %>" placeholder="Enter the Question">
+        </div>
+        <div class="answersContainer">
           <% for (let j = 1; j <= 4; j++ ) { %>
           <input type="hidden" name="cb_<%= i %><%= j %>" value="0">
           <input type="checkbox" name="cb_<%= i %><%= j %>">
@@ -42,8 +46,9 @@
           <% } %>
         </div>
      <% }; %>
-
-      <button type="submit" class="Create">Create</button>
+      <div class="createButton">
+        <button type="submit" class="Create">Create</button>
+      </div>
     </form>
   </div>
 </body>
