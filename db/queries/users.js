@@ -7,6 +7,21 @@ const getUsers = () => {
     });
 };
 
+const getUserQuizzes = () => {
+  const queryString = `SELECT users.name as username, quizzes.* FROM users
+  JOIN quizzes ON quizzes.user_id = users.id WHERE isHidden = '0';`;
+  return db.query(queryString)
+    .then(result => {
+      console.log(result.rows);
+      return result.rows;
+    })
+    .catch(err => {
+      console.log(err.message);
+      return err;
+    });
+}
+
+
 const getUsersByEmail = (email, password) => {
   const queryString = `SELECT * FROM users WHERE email = $1 AND password = $2`;
   const values = [email, password];
@@ -54,12 +69,51 @@ const getAllByUserID = (id) => {
       return err;
     });
 };
+// used on myQuiz
+const getMyQuizByUserID = (id) => {
+  const queryString = `
+  SELECT users.id As user_id, users.name, quizzes.*, quiz_submissions.grade
+  FROM quiz_submissions
+  JOIN quizzes ON quizzes.id = quiz_submissions.quiz_id
+  JOIN users ON quiz_submissions.user_id = users.id
+  GROUP BY users.id, quizzes.id, quiz_submissions.id;
+  `;
+
+  return db.query(queryString)
+    .then(result => {
+      return result.rows;
+    })
+    .catch(err => {
+      console.log(err.message);
+      return err;
+    });
+};
+
+const getMyQuizByUserIDHidden = (id) => {
+  const queryString = `
+  SELECT users.id As user_id, users.name, quizzes.*, quiz_submissions.grade
+  FROM quiz_submissions
+  JOIN quizzes ON quizzes.id = quiz_submissions.quiz_id
+  JOIN users ON quiz_submissions.user_id = users.id
+  WHERE quizzes.isHidden = '0'
+  GROUP BY users.id, quizzes.id, quiz_submissions.id;
+  `;
+
+  return db.query(queryString)
+    .then(result => {
+      return result.rows;
+    })
+    .catch(err => {
+      console.log(err.message);
+      return err;
+    });
+};
 
 const getQuizByURL = (shortURL) => {
   console.log(shortURL);
   const values = [shortURL];
   const queryString = `
-  SELECT quizzes.*, questions.*, answers.*
+  SELECT quizzes.name As quizName, questions.*, answers.acontent, answers.correct, answers.id As answer_id
   FROM quizzes
   JOIN questions ON quizzes.id = questions.quiz_id
   JOIN answers ON  questions.id = answers.question_id
@@ -125,6 +179,13 @@ const addQuiz = (quizForm, user) => {
   let onlyAsForm = {};
   let allCb = [];
   let tempKey = "";
+  let isHidden = quizForm.isHidden;
+  if(isHidden === 'on') {
+    isHidden = 1;
+  } else {
+    isHidden = 0;
+  };
+
   const allKeysForm = Object.keys(quizForm);
   for (keyForm of allKeysForm) {
     if (keyForm.startsWith('question')) {
@@ -135,19 +196,19 @@ const addQuiz = (quizForm, user) => {
       onlyAsForm[keyForm] = { quizForm: [keyForm] };
     } else if (keyForm.startsWith('cb')) {
       if (Array.isArray(quizForm[keyForm])) {
-        // newForm[tempKey][keyForm] = 'on';
         allCb.push('on');
       } else {
-        // newForm[tempKey][keyForm] = null;
         allCb.push(null);
       }
     }
   };
 
+  console.log(newForm);
+
   let queryString = `
   WITH ins1 AS (
-  INSERT INTO quizzes (name, user_id, category_id, shortURL)
-  VALUES ('${quizTitle}', '${user_id}', 6, '${shortURL}')
+  INSERT INTO quizzes (name, user_id, category_id, shortURL, isHidden)
+  VALUES ('${quizTitle}', '${user_id}', 6, '${shortURL}', '${isHidden}')
   RETURNING *),
   ins2 AS (
   INSERT INTO questions (qContent, quiz_id) VALUES`;
@@ -170,9 +231,8 @@ const addQuiz = (quizForm, user) => {
     for (eachQKey in newForm[newKey]) {
       if (eachQKey !== 'content') {
         let tempCb = allCb[cbcounter];
-
         if (counter < allCb.length) {
-          console.log(counter);
+          console.log("counter:", counter);
           queryString += `('${newForm[newKey][eachQKey]}', (SELECT id FROM ins2 WHERE qcontent = '${newForm[newKey].content}'), '${tempCb}'),`;
           counter++;
           cbcounter++;
@@ -183,6 +243,7 @@ const addQuiz = (quizForm, user) => {
       }
     }
   };
+  console.log(queryString);
   return db.query(queryString)
     .then((result) => {
       console.log(result.rows);
@@ -206,6 +267,51 @@ const addUser = (newUserName, newUserEmail, newPassword) => {
     .catch((err) => {
       console.log(err.message);
     });
+};
+
+
+
+
+const updateGrades = (sURL, quizForm, user_id) => {
+
+  allKeysObject = Object.keys(quizForm)
+  let answerArray = [];
+  for(value of allKeysObject) {
+    if(value.startsWith('question')) {
+      answerArray.push(quizForm[value]);
+  }
+}
+  const values = [sURL];
+  const queryString = `SELECT questions.id AS question_id, answers.id AS answer_id
+  FROM questions
+  JOIN answers ON answers.question_id = questions.id AND answers.correct = 'on'
+  JOIN quizzes ON quizzes.id = questions.quiz_id
+  WHERE quizzes.shorturl = $1;`
+  return db.query(queryString, values)
+    .then((result) => {
+      let countBuffer = 0;
+
+      for (let i = 0; i < result.rows.length; i++){
+        if ( answerArray[i] == result.rows[i].answer_id) {
+          countBuffer++;
+        }
+      }
+      const score = (countBuffer/result.rows.length*100);
+      // console.log('score', score);
+
+      const values2 = [score, user_id, sURL];
+      const queryString2 = `
+      INSERT INTO quiz_submissions (grade, date_submit, user_id, quiz_id)
+      VALUES ($1, (CAST(NOW() AS TIMESTAMP)), $2, (SELECT quizzes.id FROM quizzes
+      WHERE shortURL = $3));
+      `;
+      return db.query(queryString2, values2)
+      .then(() => {})
+    .catch((err) => {
+      console.log(err.message);
+    });
+
+})
 };
 
 
@@ -235,13 +341,10 @@ const getQuizIDWithShortURL = (queryString) => {
   })
 }
 
-
-
-
 const generateRandomString = function() {
   return Math.random().toString(36).substring(2, 8);
 };
 
 
-module.exports = { getUsers, getAllByUserID, getUsersByEmail, getUsersById, addQuiz, addUser, getQuizByID, getQuizByQuizID, getQuizByURL, generateRandomString, submitApiQuiz, getQuizIDWithShortURL };
+module.exports = { getUsers, getAllByUserID, getUsersByEmail, getUsersById, addQuiz, addUser, getQuizByID, getQuizByQuizID, getQuizByURL, generateRandomString, submitApiQuiz, getQuizIDWithShortURL, getUserQuizzes, updateGrades, getMyQuizByUserID, getMyQuizByUserIDHidden };
 

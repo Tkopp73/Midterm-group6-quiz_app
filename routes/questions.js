@@ -99,7 +99,7 @@ router.get('/', (req, res) => {
 
 router.post("/", (req, res) => {
   console.log('Quiz submitted!!!!!!!!!!!!!');
-  let counterBuffer = 10;
+  let counterBuffer = 100;
   let userID = req.session.user_id;
   let name = 'randomQuiz';
   let shortURL = generateRandomString();

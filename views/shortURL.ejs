@@ -24,31 +24,27 @@
 <%- include('partials/_header') %>
   <div class="userQuizContainer">
     <h1><%= quizName %></h1>
+    <form action='' method="POST">
     <ol>
-      <% let counter = 0; %>
-      <% for (let i = 0; i < questions.length; i++) { %>
-        <article class="eachUserQuestionContainer">
-          <div class="userQuestionContainer">
-            <li><%= questions[i] %></li>
-          </div>
+    <% for (let question in questions) { %>
+      <div class="userQuestionContainer">
+        <li><%= question %></li>
+      </div>
+      <ol type="A">
+      <% for (let answer of answers[question]) { %>
           <div class="userAnswerContainer">
-            <ol type="A">
-              <li><button class="userAnswer" value="wrong"><%= answers[counter] %></button></li>
-              <% counter++%>
-              <li><button class="userAnswer" value="wrong"><%= answers[counter] %></button></li>
-              <% counter++%>
-              <li><button class="userAnswer" value="right"><%= correct[i] %></button></li>
-              <li><button class="userAnswer" value="wrong"><%= answers[counter] %></button></li>
-              <% counter++%>
-            </ol>
+            <li>
+              <input type="radio" name="question_<%= answer.id %>" value="<%=answer.answer_id%>">
+              <span><%= answer.acontent %></span>
+            </li>
           </div>
-        </article>
-      <% }; %>
+      <% } %>
+      </ol>
+    <% }; %>
     </ol>
-        <form action='' method="POST" class="userSubmitForm">
-          <div id="userResult"></div>
-          <button id="userSubmitButton" type="Submit">Submit</button>
-        </form>
+      <div id="userResult"></div>
+      <button id="userSubmitButton" type="Submit">Submit</button>
+    </form>
   </div>
 </body>
 </html>
