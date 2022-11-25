@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { getMyQuizByUserID, getMyQuizByUserIDHidden } = require('../db/queries/users');
+const { getMyQuizByUserIDHidden } = require('../db/queries/users');
 
 router.get('/', (req, res) => {
   const user_id = req.session.user_id;
@@ -18,8 +18,8 @@ router.get('/', (req, res) => {
     const templateVars = {
       user: user_id,
       email: email,
-      quizzes: quizzes,
-      grade: quizzes.grade
+      quizzes: quizzes
+
     };
       console.log('HOME templateVars:', templateVars);
       res.render('home', templateVars);
@@ -30,8 +30,7 @@ router.get('/', (req, res) => {
     .then((quizzes) => {
       const templateVars = {
         user: user_id,
-        quizzes: quizzes,
-        grade: quizzes.grade
+        quizzes: quizzes
       };
       console.log('HOME templateVars:', templateVars);
       res.render('home', templateVars);

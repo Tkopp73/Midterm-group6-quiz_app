@@ -79,28 +79,22 @@ const getMyQuizByUserID = (id) => {
   JOIN users ON quiz_submissions.user_id = users.id
   WHERE users.id = $1
   GROUP BY users.id, quizzes.id, quiz_submissions.id;
-
   `;
 
   return db.query(queryString, values)
     .then(result => {
-      console.log('db query:    ', result);
       return result.rows;
     })
     .catch(err => {
-      console.log('error', err.message);
+      console.log(err.message);
       return err;
     });
 };
 
 const getMyQuizByUserIDHidden = (id) => {
   const queryString = `
-  SELECT users.id As user_id, users.name, quizzes.*, quiz_submissions.grade
-  FROM quiz_submissions
-  JOIN quizzes ON quizzes.id = quiz_submissions.quiz_id
-  JOIN users ON quiz_submissions.user_id = users.id
-  WHERE quizzes.isHidden = '0'
-  GROUP BY users.id, quizzes.id, quiz_submissions.id;
+  SELECT * FROM quizzes
+  WHERE isHidden = '0';
   `;
 
   return db.query(queryString)

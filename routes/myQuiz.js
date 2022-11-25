@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
           user: user_id,
           email: email,
           quizzes: quizzes,
-          grade: quizzes.grade
+          grade: quizzes
         };
         console.log('TemplateVars:', templateVars)
         console.log("Quiz route is working");
