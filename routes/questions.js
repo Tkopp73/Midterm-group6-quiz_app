@@ -101,7 +101,7 @@ router.post("/", (req, res) => {
   console.log('Quiz submitted!!!!!!!!!!!!!');
   let counterBuffer = 100;
   let userID = req.session.user_id;
-  let name = 'randomQuiz';
+  let name = 'Supplied Quiz';
   let shortURL = generateRandomString();
   const values = [name, userID, shortURL, counterBuffer];
   const queryString = `WITH ins1 AS (

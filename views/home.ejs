@@ -20,22 +20,20 @@
 
 <body>
   <%- include('partials/_header') %>
-    <div class="userQuizContainer">
+    <div class="customQuizContainer">
       <h1>Custom Quizzes</h1>
           <table>
             <tr>
               <th>Quiz Name</th>
               <th>ShortURL</th>
               <th>Grade</th>
-              <th>When?</th>
             </tr>
             <tbody>
-              <% for(let obj of quizzes) { %>
+              <% for(let obj in quizzes) { %>
                 <tr>
                   <td><%= obj.name %></td>
                   <td><a href="shortURL/<%= obj.shorturl %>"><%= obj.shorturl %></a></td>
                   <td><%= obj.grade %></td>
-                  <td></td>
                 </tr>
               <% } %>
             </tbody>

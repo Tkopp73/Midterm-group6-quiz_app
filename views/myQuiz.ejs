@@ -27,7 +27,6 @@
           <th>Quiz Name</th>
           <th>ShortURL</th>
           <th>Score</th>
-          <th>When?</th>
         </tr>
         <tbody>
           <% for(let obj of quizzes) { %>
@@ -35,7 +34,6 @@
               <td><%= obj.name %></td>
               <td><a href="shortURL/<%= obj.shorturl %>"><%= obj.shorturl %></a></td>
               <td><%= obj.grade %></td>
-              <td></td>
             </tr>
           <% } %>
         </tbody>
