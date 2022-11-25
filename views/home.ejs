@@ -20,8 +20,26 @@
 
 <body>
   <%- include('partials/_header') %>
-    <div class="scoreboard">
-      <h1>SCOREBOARD</h1>
+    <div class="userQuizContainer">
+      <h1>Custom Quizzes</h1>
+          <table>
+            <tr>
+              <th>Quiz Name</th>
+              <th>ShortURL</th>
+              <th>Grade</th>
+              <th>When?</th>
+            </tr>
+            <tbody>
+              <% for(let obj of quizzes) { %>
+                <tr>
+                  <td><%= obj.name %></td>
+                  <td><a href="shortURL/<%= obj.shorturl %>"><%= obj.shorturl %></a></td>
+                  <td><%= obj.grade %></td>
+                  <td></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
     </div>
     <div id="categories">
       <form class="film" action="/quiz" method="get">

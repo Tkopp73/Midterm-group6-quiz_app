@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
   const newPassword = req.body.password;
   addUser(newUserName, newUserEmail, newPassword).then(() => {
     console.log('New User has been added!!!');
-    res.redirect('/');
+    res.redirect('/login');
   })
 });
 

@@ -25,17 +25,23 @@
     <form method="POST" action="/create">
       <div>
           <label>Title of the Quiz:</label>
-          <input type="text" name="quiz_title">
-      </div>
-      <% for(let i = 1; i <= 10; i++) { %>
+          <input type="text" name="quiz_title" placeholder="Enter the Title of the Quiz">
+          <label>Hidden Quizes</label>
+          <input type="checkbox" name="isHidden">
+        </div>
+        <% for (let i =1; i <= 5; i++ ) {%>
         <label>Question <%= i %></label>
-        <input type="text" name="question_<%= i %><%= i %>" placeholder="Enter Question">
-        <% for(let j = 1; j <= 4; j++) { %>
-        <input type="hidden" name="cb_<%= i %><%= j %>" value="0">
-        <input type="checkbox" name="cb_<%= i %><%= j %>">
-        <input type="text" name="as_<%= i %><%= j %>">
-      <% }
-    } %>
+        <input type="text" name="question_<%= i %>" placeholder="Enter the Question">
+        <div>
+          <% for (let j = 1; j <= 4; j++ ) { %>
+          <input type="hidden" name="cb_<%= i %><%= j %>" value="0">
+          <input type="checkbox" name="cb_<%= i %><%= j %>">
+          <input type="text" name="as_<%= i %><%= j %>" placeholder="Answer">
+
+          <% } %>
+        </div>
+     <% }; %>
+
       <button type="submit" class="Create">Create</button>
     </form>
     </div>

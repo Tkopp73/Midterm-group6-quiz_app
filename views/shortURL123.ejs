@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Quiz</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/header.css"/>
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/app.js"></script>
+  <script src="/scripts/userQuiz.js"></script>
+</head>
+
+<body>
+<%- include('partials/_header') %>
+  <div class="userQuizContainer">
+    <h1><%= quizName %></h1>
+    <ol>
+      <% let counter = 0; %>
+      <% for (let i = 0; i < questions.length; i++) { %>
+        <article class="eachUserQuestionContainer">
+          <div class="userQuestionContainer">
+            <li><%= questions[i] %></li>
+          </div>
+          <div class="userAnswerContainer">
+            <ol type="A">
+              <li><button class="userAnswer" value="wrong"><%= answers[counter] %></button></li>
+              <% counter++%>
+              <li><button class="userAnswer" value="wrong"><%= answers[counter] %></button></li>
+              <% counter++%>
+              <li><button class="userAnswer" value="right"><%= correct[i] %></button></li>
+              <li><button class="userAnswer" value="wrong"><%= answers[counter] %></button></li>
+              <% counter++%>
+            </ol>
+          </div>
+        </article>
+      <% }; %>
+    </ol>
+        <form action='' method="POST">
+          <div id="userResult"></div>
+          <button id="userSubmitButton" type="Submit">Submit</button>
+        </form>
+  </div>
+</body>
+</html>

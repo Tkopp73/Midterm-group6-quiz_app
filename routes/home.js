@@ -7,26 +7,35 @@
 
 const express = require('express');
 const router  = express.Router();
-const { getUsersById } = require('../db/queries/users');
+const { getMyQuizByUserID, getMyQuizByUserIDHidden } = require('../db/queries/users');
 
 router.get('/', (req, res) => {
   const user_id = req.session.user_id;
+  const email = req.session.email;
   if (user_id) {
-  getUsersById(user_id)
-  .then((user) => {
+  getMyQuizByUserIDHidden(user_id)
+  .then((quizzes) => {
     const templateVars = {
       user: user_id,
-      email: user.email
+      email: email,
+      quizzes: quizzes,
+      grade: quizzes.grade
     };
-      console.log('templateVars:', templateVars);
+      console.log('HOME templateVars:', templateVars);
       res.render('home', templateVars);
     });
   } else {
     const user_id = req.session.user_id;
-    const templateVars = {
-      user: user_id
-    };
-    res.render('home', templateVars);
+    getMyQuizByUserIDHidden(user_id)
+    .then((quizzes) => {
+      const templateVars = {
+        user: user_id,
+        quizzes: quizzes,
+        grade: quizzes.grade
+      };
+      console.log('HOME templateVars:', templateVars);
+      res.render('home', templateVars);
+    })
   }
 });
 
